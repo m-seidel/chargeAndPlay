@@ -119,3 +119,7 @@ document.getElementById('find').addEventListener('click', () => {
   const query = buildOverpassQuery(bbox);
   fetchData(query).then(data => processData(data, map));
 });
+
+document.getElementById('update-location').addEventListener('click', () => {
+  map.locate({ setView: true, maxZoom: defaultMaxZoom });
+});

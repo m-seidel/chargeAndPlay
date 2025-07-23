@@ -9,8 +9,33 @@
             href="https://unpkg.com/leaflet/dist/leaflet.css"
     />
     <style>
-        #map { height: 90vh; }
-        #button-container { padding: 1em; }
+      #map {
+        height: 90vh;
+      }
+      #button-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 1em;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        z-index: 1000;
+      }
+      #button-container button {
+        font-size: 1.2em;
+        padding: 1em;
+        border-radius: 8px;
+        border: none;
+        background-color: #3366cc;
+        color: white;
+        cursor: pointer;
+      }
+      #button-container button:hover {
+        background-color: #254a99;
+      }
     </style>
 </head>
 <body>
@@ -18,6 +43,7 @@
 <div id="map"></div>
 <div id="button-container">
     <button id="find">Finde Pausenplätze</button>
+    <button id="update-location">Standort aktualisieren</button>
 </div>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
