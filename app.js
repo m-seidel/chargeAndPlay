@@ -75,7 +75,9 @@ function processData(data, map) {
   map.markersLayer.clearLayers();
 
   const chargers = data.elements.filter(e => e.tags?.amenity === 'charging_station');
-  const playgrounds = data.elements.filter(e => e.tags?.leisure === 'playground');
+  const playgrounds = data.elements.filter(e =>
+    e.tags?.leisure === 'playground' && e.tags.access !== 'private'
+  );
 
   chargers.forEach(charger => {
     let lat = charger.lat || charger.center?.lat;
@@ -103,7 +105,11 @@ function processData(data, map) {
           const pgLat = pg.lat || pg.center?.lat;
           const pgLon = pg.lon || pg.center?.lon;
           if (pgLat && pgLon) {
-            const pgMarker = L.marker([pgLat, pgLon], { icon: map.playgroundIcon }).bindPopup(`Spielplatz nahe Ladesäule ${charger.id}`);
+            let pgPopup = '<b>Spielplatz</b>'
+            for (const [key, value] of Object.entries(pg.tags)) {
+              pgPopup += `<br><b>${key}</b>: ${value}`;
+            }
+            const pgMarker = L.marker([pgLat, pgLon], { icon: map.playgroundIcon }).bindPopup(pgPopup);
             map.markersLayer.addLayer(pgMarker);
           }
         });
