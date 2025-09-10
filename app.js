@@ -105,10 +105,11 @@ function processData(data, map) {
           const pgLat = pg.lat || pg.center?.lat;
           const pgLon = pg.lon || pg.center?.lon;
           if (pgLat && pgLon) {
-            let pgPopup = '<b>Spielplatz</b>'
+            let pgPopup = '<b>Spielplatz</b>';
             for (const [key, value] of Object.entries(pg.tags)) {
               pgPopup += `<br><b>${key}</b>: ${value}`;
             }
+            pgPopup += `<br><a href="https://www.google.com/maps/search/?api=1&query=${pgLat},${pgLon}" target="_blank" rel="noopener" style="display:inline-block;margin-top:0.5em;padding:0.5em 1em;background:#3366cc;color:white;border-radius:5px;text-align:center;text-decoration:none;">In Google Maps öffnen</a>`;
             const pgMarker = L.marker([pgLat, pgLon], { icon: map.playgroundIcon }).bindPopup(pgPopup);
             map.markersLayer.addLayer(pgMarker);
           }
